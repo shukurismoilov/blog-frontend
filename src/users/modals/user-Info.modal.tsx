@@ -1,59 +1,51 @@
 import { FC } from "react";
-import { Button, Col, Modal, Row, Typography } from "antd";
-import { Link as RouterLink } from "react-router";
-import {
-  FacebookFilled,
-  GoogleCircleFilled,
-  MailFilled,
-} from "@ant-design/icons";
+import { Flex, Modal, Space, Typography } from "antd";
 
-const { Title } = Typography;
+import { SingleUserDto } from "../types";
+import { LoginOutlined, MailOutlined, PhoneOutlined } from "@ant-design/icons";
 
-interface SignUpModalProps {
+const { Title, Text, Link } = Typography;
+
+interface UserInfoModalProps {
+  user?: SingleUserDto | null;
   open: boolean;
   hideModal: () => void;
 }
 
-const SignUpModal: FC<SignUpModalProps> = ({ open, hideModal }) => {
+const UserInfoModal: FC<UserInfoModalProps> = ({ user, open, hideModal }) => {
   return (
     <Modal open={open} onCancel={hideModal} footer={null}>
-      <Row
-        align="middle"
-        gutter={[16, 16]}
-        justify="center"
-        style={{ textAlign: "center", margin: "48px 0" }}
-      >
-        <Col span={24}>
-          <Title level={3}>Join Blogg</Title>
-        </Col>
-        <Col span={24}>
-          <RouterLink to="https://google.com">
-            <Button
-              type="default"
-              shape="round"
-              icon={<GoogleCircleFilled size={44} />}
-            >
-              Sign up with Google
-            </Button>
-          </RouterLink>
-        </Col>
-        <Col span={24}>
-          <RouterLink to="https://facebook.com">
-            <Button type="default" shape="round" icon={<FacebookFilled />}>
-              Sign up with Facebook
-            </Button>
-          </RouterLink>
-        </Col>
-        <Col span={24}>
-          <RouterLink to="https://mail.com">
-            <Button type="default" shape="round" icon={<MailFilled />}>
-              Sign up with email
-            </Button>
-          </RouterLink>
-        </Col>
-      </Row>
+      <Flex justify="center" vertical style={{ margin: "32px 0" }}>
+        <Title style={{ margin: "0" }} level={3}>
+          {user?.name}
+        </Title>
+        <Title level={5}>Contacts</Title>
+        <Space size="large">
+          <MailOutlined />
+          <Link href={`mailto:${user?.email}`}>{user?.email}</Link>
+        </Space>
+        <Space size="large">
+          <PhoneOutlined />
+          <Link href={`tel:${user?.phone}`}>{user?.phone}</Link>
+        </Space>
+        <Space size="large">
+          <LoginOutlined />
+          <Link href={user?.website}>{user?.website}</Link>
+        </Space>
+        <Title level={5}>Addess and Company</Title>
+        <Space size="large">
+          <Text type="secondary">Address: </Text>
+          <Text>
+            {`${user?.address.street}, ${user?.address.suite}, ${user?.address.city}, ${user?.address.zipcode}`}
+          </Text>
+        </Space>
+        <Space size="large">
+          <Text type="secondary">Company: </Text>
+          <Text>{user?.company.name}</Text>
+        </Space>
+      </Flex>
     </Modal>
   );
 };
 
-export { SignUpModal };
+export { UserInfoModal };

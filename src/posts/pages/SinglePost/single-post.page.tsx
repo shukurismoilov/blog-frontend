@@ -1,42 +1,40 @@
-import { FC, useEffect } from "react";
-import { Avatar, Button, Flex, Image, Space, Typography } from "antd";
-import { postSingleStore } from "../../stores";
+import { FC, useEffect, useState } from "react";
+import { Avatar, Button, Divider, Flex, Image, Space, Typography } from "antd";
+import { postsCommentsStore, postSingleStore } from "../../stores";
 import { useShallow } from "zustand/shallow";
 import { usePageTitle } from "../../../app/hooks";
 import { userSingleStore } from "../../../users/stores/user-single.store";
+import { UserInfoModal } from "../../../users/modals";
 
-const { Title, Text, Paragraph } = Typography;
+const { Title, Link, Paragraph } = Typography;
 
 const SinglePostPage: FC = () => {
-  const { post, postLoading, postError, clearPostStore } = postSingleStore(
+  const [openUserInfo, setOpenUserInfo] = useState(false);
+
+  const { post, postLoading, postError } = postSingleStore(
     useShallow((state) => ({
       post: state.single,
       postLoading: state.loading,
       postError: state.error,
-      clearPostStore: state.clearStore,
     }))
   );
 
-  const { comments, commentsLoading, commentsError, clearCommentsStore } =
-    postSingleStore(
-      useShallow((state) => ({
-        list: state.single,
-        commentsLoading: state.loading,
-        commentsError: state.error,
-        clearCommentsStore: state.clearStore,
-      }))
-    );
+  const { comments, commentsLoading, commentsError } = postsCommentsStore(
+    useShallow((state) => ({
+      comments: state.list,
+      commentsLoading: state.loading,
+      commentsError: state.error,
+    }))
+  );
 
-  const { user, getUser, userLoading, userError, clearUserStore } =
-    userSingleStore(
-      useShallow((state) => ({
-        user: state.single,
-        getUser: state.getSingle,
-        userLoading: state.loading,
-        userError: state.error,
-        clearUserStore: state.clearStore,
-      }))
-    );
+  const { user, getUser, userLoading, userError } = userSingleStore(
+    useShallow((state) => ({
+      user: state.single,
+      getUser: state.getSingle,
+      userLoading: state.loading,
+      userError: state.error,
+    }))
+  );
 
   useEffect(() => {
     if (post) {
@@ -47,20 +45,11 @@ const SinglePostPage: FC = () => {
 
   usePageTitle(post ? `${post.title}` : `Post loading...`);
 
-  useEffect(() => {
-    return () => {
-      clearPostStore();
-      clearCommentsStore();
-      clearUserStore();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <Flex align="center" vertical>
-      
       <div style={{ maxWidth: "1140px" }}>
         <Image
+          preview={false}
           alt="post image"
           width="100%"
           src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
@@ -77,15 +66,51 @@ const SinglePostPage: FC = () => {
             <Title style={{ marginBottom: "0" }} level={4}>
               {user?.name}
             </Title>
-            <Text type="secondary">{user?.email}</Text>
+            <Link href={`mailto:${user?.email}`} style={{ fontWeight: "bold" }}>
+              {user?.email}
+            </Link>
           </Space>
-          <Button shape="round" style={{ marginLeft: "auto" }} type="default">
+          <Button
+            shape="round"
+            style={{ marginLeft: "auto" }}
+            type="default"
+            onClick={() => setOpenUserInfo(true)}
+          >
             About
           </Button>
         </Flex>
 
-        <Paragraph>{post?.body}</Paragraph>
+        <Paragraph style={{ fontSize: "1.1rem" }}>{post?.body}</Paragraph>
+
+        <Title level={3} style={{ marginTop: "64px" }}>
+          Comments
+        </Title>
+        <Divider />
+        {comments.map((comment) => (
+          <Space key={comment.id} direction="vertical">
+            <Space align="center">
+              <Avatar
+                shape="circle"
+                src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${comment.id}`}
+              />
+              <Link
+                href={`mailto:${comment.email}`}
+                style={{ fontWeight: "bold" }}
+              >
+                {comment.email}
+              </Link>
+            </Space>
+            <Paragraph style={{ maxWidth: "800px" }}>{comment.body}</Paragraph>
+          </Space>
+        ))}
       </div>
+      {user && (
+        <UserInfoModal
+          user={user}
+          open={openUserInfo}
+          hideModal={() => setOpenUserInfo(false)}
+        />
+      )}
     </Flex>
   );
 };

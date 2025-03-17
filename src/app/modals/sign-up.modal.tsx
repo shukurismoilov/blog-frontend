@@ -21,7 +21,7 @@ const SignUpModal: FC<SignUpModalProps> = ({ open, hideModal }) => {
         align="middle"
         gutter={[16, 16]}
         justify="center"
-        style={{ textAlign: "center", margin: "48px 0" }}
+        style={{ textAlign: "center", margin: "32px 0" }}
       >
         <Col span={24}>
           <Title level={3}>Join Blogg</Title>
