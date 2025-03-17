@@ -9,12 +9,12 @@ import {
 
 const { Title } = Typography;
 
-interface SignUpModal {
+interface SignUpModalProps {
   open: boolean;
   hideModal: () => void;
 }
 
-const SignUpModal: FC<SignUpModal> = ({ open, hideModal }) => {
+const SignUpModal: FC<SignUpModalProps> = ({ open, hideModal }) => {
   return (
     <Modal open={open} onCancel={hideModal} footer={null}>
       <Row

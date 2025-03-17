@@ -1,0 +1,1 @@
+export type { PostsListDto, PostsFilterDto } from "./posts.types";

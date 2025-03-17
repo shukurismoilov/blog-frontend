@@ -1,11 +1,12 @@
 import { RouteObject } from "react-router";
 import { MainLayout } from "../layouts";
 import { homeRoutes } from "../../home/pages";
+import { postsRoutes } from "../../posts/pages";
 
 const mainRoute: RouteObject = {
   path: "/",
   element: <MainLayout />,
-  children: [...homeRoutes],
+  children: [...homeRoutes, ...postsRoutes],
 
   errorElement: <>Error Page</>,
 };
