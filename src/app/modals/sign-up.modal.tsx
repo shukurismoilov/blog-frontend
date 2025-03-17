@@ -29,6 +29,7 @@ const SignUpModal: FC<SignUpModalProps> = ({ open, hideModal }) => {
         <Col span={24}>
           <RouterLink to="https://google.com">
             <Button
+              size="large"
               type="default"
               shape="round"
               icon={<GoogleCircleFilled size={44} />}
@@ -39,14 +40,24 @@ const SignUpModal: FC<SignUpModalProps> = ({ open, hideModal }) => {
         </Col>
         <Col span={24}>
           <RouterLink to="https://facebook.com">
-            <Button type="default" shape="round" icon={<FacebookFilled />}>
+            <Button
+              size="large"
+              type="default"
+              shape="round"
+              icon={<FacebookFilled />}
+            >
               Sign up with Facebook
             </Button>
           </RouterLink>
         </Col>
         <Col span={24}>
           <RouterLink to="https://mail.com">
-            <Button type="default" shape="round" icon={<MailFilled />}>
+            <Button
+              size="large"
+              type="default"
+              shape="round"
+              icon={<MailFilled />}
+            >
               Sign up with email
             </Button>
           </RouterLink>
