@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Button, Image, Row, Col, Typography } from "antd";
+import { Link as RouterLink } from "react-router";
 
 const { Title, Paragraph } = Typography;
 
@@ -20,9 +21,12 @@ const HomePage: FC = () => {
           stories and ideas from around the world. Or at least that's what our
           team thinks. We hope you find something that resonates with you.
         </Paragraph>
-        <Button variant="solid" type="primary" shape="round" size="large">
-          Start Reading
-        </Button>
+
+        <RouterLink to="/posts">
+          <Button variant="solid" type="primary" shape="round" size="large">
+            Start Reading
+          </Button>
+        </RouterLink>
       </Col>
       <Col sm={{ flex: "100%" }} lg={{ flex: "50%" }}>
         <Image
