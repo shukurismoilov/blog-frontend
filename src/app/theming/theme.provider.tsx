@@ -1,5 +1,14 @@
 import { FC, ReactNode } from "react";
-import { Button, ConfigProvider, Layout, Space, Typography, theme } from "antd";
+import {
+  Button,
+  ConfigProvider,
+  Layout,
+  Grid,
+  Typography,
+  theme,
+  Row,
+  Col,
+} from "antd";
 import { useThemeStore } from "./theme.store";
 
 import enUS from "antd/locale/en_US";
@@ -11,6 +20,7 @@ dayjs.locale("en");
 
 const { Header, Content, Footer } = Layout;
 const { Text, Link } = Typography;
+const { useBreakpoint } = Grid;
 
 interface ThemeProviderProps {
   children: ReactNode;
@@ -18,6 +28,7 @@ interface ThemeProviderProps {
 
 const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   const mode = useThemeStore((state) => state.mode);
+  const screens = useBreakpoint();
 
   return (
     <ConfigProvider
@@ -26,9 +37,15 @@ const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
         algorithm:
           mode === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
         token: {
-          colorPrimary: mode === "dark" ? "#ff4d4f" : "#1677ff",
+          colorBgContainer: mode === "dark" ? "#333" : "#ffffff",
           colorBgBase: mode === "dark" ? "#141414" : "#ffffff",
-          colorTextBase: mode === "dark" ? "#ffffff" : "#000000",
+        },
+        components: {
+          Typography: {
+            fontFamily: "Libre Baskerville, serif",
+            algorithm: true,
+            colorTextBase: mode === "dark" ? "#ffffff" : "#141414",
+          },
         },
       }}
     >
@@ -38,28 +55,48 @@ const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            backgroundColor: "transparent",
+            borderBottom:
+              mode === "dark"
+                ? "1px solid #303030"
+                : "1px solid rgb(221, 221, 221)",
           }}
         >
           <a href="/" style={{ display: "flex", alignItems: "center" }}>
-            <img src="/logo.svg" alt="logo" />
+            {mode === "dark" ? (
+              <img src="/logo.svg" alt="logo" />
+            ) : (
+              <img src="/logo-dark.svg" alt="logo" />
+            )}
           </a>
-          <Space size="large">
-            <Link href="/about" style={{ color: "#fff" }}>
-              Our story
-            </Link>
-            <Button
-              style={{ backgroundColor: "#fff", color: "#000" }}
-              shape="round"
-              variant="solid"
-              size="large"
-              type="default"
-            >
-              Get started
-            </Button>
+          <Row align="middle" gutter={16}>
+            {!screens.xs && (
+              <Col>
+                <Link
+                  href="/about"
+                  style={{
+                    fontSize: 16,
+                    color: mode === "dark" ? "#ffffff" : "#000000",
+                    fontFamily: `"system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif"`,
+                  }}
+                >
+                  Our story
+                </Link>
+              </Col>
+            )}
+            <Col>
+              <Button shape="round" variant="solid" size="large" type="primary">
+                Get started
+              </Button>
+            </Col>
             <ThemeSwitcher />
-          </Space>
+          </Row>
         </Header>
-        <Content style={{ padding: "48px 48px 0" }}>{children}</Content>
+        <Content
+          style={{ minHeight: "calc(100vh - 134px)", padding: "48px 48px 0" }}
+        >
+          {children}
+        </Content>
         <Footer style={{ textAlign: "center" }}>
           <Text>
             Blogg &copy; {new Date().getFullYear()} Created by{" "}

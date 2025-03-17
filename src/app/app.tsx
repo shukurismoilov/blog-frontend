@@ -1,15 +1,11 @@
 import { FC } from "react";
 import { ThemeProvider } from "./theming";
-import { Typography } from "antd";
-
-const { Text } = Typography;
+import { HomePage } from "../home/pages";
 
 const App: FC = () => {
   return (
     <ThemeProvider>
-      <div style={{ minHeight: "calc(100vh - 182px)" }}>
-        <Text>Content</Text>
-      </div>
+      <HomePage />
     </ThemeProvider>
   );
 };
