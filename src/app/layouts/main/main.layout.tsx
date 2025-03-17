@@ -7,7 +7,6 @@ import {
   Button,
   ConfigProvider,
   theme,
-  Modal,
 } from "antd";
 import { Outlet, Link as RouterLink } from "react-router";
 import { ThemeSwitcher, useThemeStore } from "../../theming";
