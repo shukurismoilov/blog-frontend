@@ -1,13 +1,9 @@
 import { FC } from "react";
-import { ThemeProvider } from "./theming";
-import { HomePage } from "../home/pages";
+import { RouterProvider } from "react-router";
+import { getRouter } from "./router";
 
 const App: FC = () => {
-  return (
-    <ThemeProvider>
-      <HomePage />
-    </ThemeProvider>
-  );
+  return <RouterProvider router={getRouter()} />;
 };
 
 export { App };

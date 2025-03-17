@@ -1,1 +1,1 @@
-export { HomePage } from "./home.page"
+export { homeRoutes } from "./home.routes";
