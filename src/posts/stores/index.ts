@@ -1,1 +1,1 @@
-export { postsPaginatedListStore } from "./posts.store";
+export { postsListStore } from "./posts.store";
