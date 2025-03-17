@@ -17,7 +17,7 @@ interface BaseSingleStore<D> extends BaseStore {
 
 interface BaseListStore<R, F = unknown> extends BaseStore {
   list: R[];
-  getList: (id?: string) => Promise<R[]>;
+  getList: (id?: number) => Promise<R[]>;
 
   filter?: Partial<F>;
   changeFilter?: (params: Partial<F>, fetchAfter?: boolean) => void;

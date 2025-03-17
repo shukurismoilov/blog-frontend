@@ -1,1 +1,6 @@
-export type { PostsListDto, PostsFilterDto } from "./posts.types";
+export type {
+  PostsListDto,
+  PostsFilterDto,
+  SinglePostDto,
+  PostCommentDto,
+} from "./posts.types";

@@ -1,10 +1,13 @@
 import { FC } from "react";
 import { Button, Image, Row, Col, Typography } from "antd";
 import { Link as RouterLink } from "react-router";
+import { usePageTitle } from "../../../app/hooks";
 
 const { Title, Paragraph } = Typography;
 
 const HomePage: FC = () => {
+  usePageTitle(`Home`);
+
   return (
     <Row gutter={[32, 32]} align="middle" justify="center">
       <Col sm={{ flex: "100%" }} lg={{ flex: "50%" }}>
