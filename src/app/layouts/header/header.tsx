@@ -42,18 +42,32 @@ const Header: FC = () => {
       </a>
       <Row align="middle" gutter={16}>
         {!screens.xs && (
-          <Col>
-            <RouterLink
-              to="/about"
-              style={{
-                fontSize: 16,
-                color: mode === "dark" ? "#ffffff" : "#000000",
-                fontFamily: `"system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif"`,
-              }}
-            >
-              Our story
-            </RouterLink>
-          </Col>
+          <>
+            <Col>
+              <RouterLink
+                to="/posts"
+                style={{
+                  fontSize: 16,
+                  color: mode === "dark" ? "#ffffff" : "#000000",
+                  fontFamily: `"system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif"`,
+                }}
+              >
+                Posts
+              </RouterLink>
+            </Col>
+            <Col>
+              <RouterLink
+                to="/about"
+                style={{
+                  fontSize: 16,
+                  color: mode === "dark" ? "#ffffff" : "#000000",
+                  fontFamily: `"system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif"`,
+                }}
+              >
+                Our story
+              </RouterLink>
+            </Col>
+          </>
         )}
         <Col>
           <Button

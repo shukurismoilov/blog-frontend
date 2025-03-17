@@ -2,18 +2,20 @@ import { RouteObject } from "react-router";
 import { MainLayout } from "../layouts";
 import { homeRoutes } from "../../home/pages";
 import { postsRoutes } from "../../posts/pages";
+import { aboutRoutes } from "../../about/pages";
+import { ErrorPage, NotFoundPage } from "../pages";
 
 const mainRoute: RouteObject = {
   path: "/",
   element: <MainLayout />,
-  children: [...homeRoutes, ...postsRoutes],
+  children: [...homeRoutes, ...postsRoutes, ...aboutRoutes],
 
-  errorElement: <>Error Page</>,
+  errorElement: <ErrorPage />,
 };
 
 const notFoundRoute: RouteObject = {
   path: "*",
-  element: <>Not Found Page</>,
+  element: <NotFoundPage />,
 };
 
 export { mainRoute, notFoundRoute };

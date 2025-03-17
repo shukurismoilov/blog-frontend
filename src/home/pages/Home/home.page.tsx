@@ -11,7 +11,7 @@ const HomePage: FC = () => {
   return (
     <Row gutter={[32, 32]} align="middle" justify="center">
       <Col sm={{ flex: "100%" }} lg={{ flex: "50%" }}>
-        <Title level={1} style={{ fontSize: "64px" }}>
+        <Title level={1} style={{ fontSize: "4rem" }}>
           Human stories & ideas
         </Title>
         <Paragraph
