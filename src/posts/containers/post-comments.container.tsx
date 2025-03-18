@@ -1,18 +1,28 @@
 import { FC } from "react";
 import { postsCommentsStore } from "../stores";
 import { useShallow } from "zustand/shallow";
-import { Avatar, Divider, Space, Typography } from "antd";
+import { Alert, Avatar, Divider, Skeleton, Space, Typography } from "antd";
 
 const { Title, Link, Paragraph } = Typography;
 
 const PostCommentsContainer: FC = () => {
-  const { comments, commentsLoading, commentsError } = postsCommentsStore(
+  const { comments, loading, error } = postsCommentsStore(
     useShallow((state) => ({
       comments: state.list,
-      commentsLoading: state.loading,
-      commentsError: state.error,
+      loading: state.loading,
+      error: state.error,
     }))
   );
+
+  if (error)
+    return (
+      <Alert
+        message="Error"
+        description="Something went wrong cannot load comments"
+        type="error"
+        showIcon
+      />
+    );
 
   return (
     <>
@@ -20,6 +30,9 @@ const PostCommentsContainer: FC = () => {
         Comments
       </Title>
       <Divider />
+      <Skeleton avatar loading={loading} active />
+      <Skeleton avatar loading={loading} active />
+      <Skeleton avatar loading={loading} active />
       {comments.map((comment) => (
         <Space key={comment.id} direction="vertical">
           <Space align="center">

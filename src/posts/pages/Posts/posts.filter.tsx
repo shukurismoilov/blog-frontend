@@ -26,7 +26,7 @@ const PostsFilter: FC = () => {
   }, [search]);
 
   return (
-    <Flex style={{ width: "100%" }} justify="flex-end" gap={12} align="center">
+    <Flex style={{ width: "100%" }} justify="flex-end" gap={12} align="center" wrap>
       <Title level={2} style={{ margin: "0 auto 0 0" }}>
         Posts
       </Title>
