@@ -1,5 +1,6 @@
 import { ApiError } from "../types";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const apiErrorParser = (error: any): ApiError => {
   let errorReason = "";
   let errorMessage;

@@ -1,5 +1,5 @@
 interface ApiError {
-  message: any;
+  message: string;
   reason?: string;
 }
 

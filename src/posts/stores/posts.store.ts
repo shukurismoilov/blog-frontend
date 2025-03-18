@@ -24,7 +24,7 @@ const postsListStore = create<BaseListStore<PostsListDto, PostsFilterDto>>(
 
       const queryParams = new URLSearchParams(
         removeUselessQueryItems({
-          userId: filter?.userId,
+          userId: filter?.userId ? String(filter?.userId) : undefined,
         })
       );
 

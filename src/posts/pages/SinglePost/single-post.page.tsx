@@ -69,7 +69,7 @@ const SinglePostPage: FC = () => {
         />
         <Skeleton.Node
           active={loading || userLoading}
-          style={{ width: "100%", height: "60px", marginBottom: "32px" }}
+          style={{ width: "100%", height: "60px", margin: "32px 0" }}
         />
         <Skeleton active avatar loading={loading || userLoading} />
 
